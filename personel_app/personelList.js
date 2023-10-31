@@ -1,18 +1,13 @@
 const apiUrl = 'http://localhost:8080/personel';
 
-const personelForm = document.getElementById('personel-form');
-personelForm.addEventListener('submit', function(event) {
-    event.preventDefault();
+// Sorgula butonu
+const queryButton = document.getElementById('sorgula');
+queryButton.addEventListener('click', () => {
+    const personelId = document.getElementById('id').value;
     
-    // Formdaki id'yi al
-    const personelId = document.getElementById('personelId').value;
-
-    // Belirli bir kişinin bilgilerini almak için GET isteği gönder
     fetch(apiUrl + '/' + personelId)
-    
         .then((response) => response.json())
         .then((data) => {
-            // Dönen veriyi kullanarak tabloyu güncelle
             updateTable([data]);
         })
         .catch((error) => {
@@ -21,39 +16,35 @@ personelForm.addEventListener('submit', function(event) {
 });
 
 // Tabloyu güncelleyen işlev
-function updateTable(posts) {
+function updateTable(personel) {
     const tableBody = document.getElementById('table-body');
     tableBody.innerHTML = '';
 
-    posts.forEach((post) => {
+    personel.forEach((personel) => {
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td>${post.id}</td>
-            <td>${post.firstName}</td>
-            <td>${post.surname}</td>
-            <td>${post.salary}</td>
-            <td>${post.isMarried}</td>
-            <td>${post.department}</td>
-            <td>${post.gender}</td>
-            <td>${post.birthDate}</td>
-            <td>${post.body}</td>
-            <td><button class="btn btn-primary delete-button" data-post-id="${post.id}">Sil</button></td>
-            <td><button class="btn btn-primary update-button" data-post-id="${post.id}">Güncelle</button></td>
+            <td>${personel.id}</td>
+            <td>${personel.firstName}</td>
+            <td>${personel.surname}</td>
+            <td>${personel.salary}</td>
+            <td>${personel.isMarried}</td>
+            <td>${personel.department}</td>
+            <td>${personel.gender}</td>
+            <td>${personel.birthDate}</td>
+            <td><button class="btn btn-danger delete-button" data-personel-id="${personel.id}">Sil</button></td>
+            <td><button class="btn btn-primary update-button" data-personel-id="${personel.id}">Güncelle</button></td>
         `;
         tableBody.appendChild(row);
     });
-}
 
-
-const deleteButtons = document.querySelectorAll('.delete-button');
+    // Silme işlemi için düğmelere tıklama dinleyici ekleyin
+    const deleteButtons = document.querySelectorAll('.delete-button');
     deleteButtons.forEach((button) => {
         button.addEventListener('click', () => {
-            const deleteId = button.getAttribute('data-post-id');
+            const personelId = button.getAttribute('data-personel-id');
             if (confirm('Bu kişiyi silmek istediğinizden emin misiniz?')) {
-                // Silme işlemi için DELETE isteği gönder
-                fetch(apiUrl + '/' + deleteId, {
-                    mode: 'no-cors',
-                   method: 'DELETE',
+                fetch(apiUrl + '/' + personelId, {
+                    method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -71,23 +62,22 @@ const deleteButtons = document.querySelectorAll('.delete-button');
             }
         });
     });
-
-
+    
+    // Güncelle butonlarına tıklama dinleyici ekleyin
+    const updateButtons = document.querySelectorAll('.update-button');
+    updateButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+            const personelId = button.getAttribute('data-personel-id');
+            window.location.href = `post-personel.html?id=${personelId}`;
+        });
+    });
+}
 
 // JSON verisini API'den al
 fetch(apiUrl)
     .then((response) => response.json())
     .then((data) => {
         updateTable(data);
-        // Güncelle butonuna tıklamayı dinle
-        const detailButtons = document.querySelectorAll('.update-button');
-        detailButtons.forEach((button) => {
-            button.addEventListener('click', () => {
-                const updateId = button.getAttribute('data-post-id');
-                window.location.href = `post-update.html?id=${updateId}`;
-
-            });
-        });
     })
     .catch((error) => {
         console.error('Veri alınırken bir hata oluştu: ', error);
