@@ -1,20 +1,47 @@
 const apiUrl = 'http://localhost:8080/personel';
 
 // Sorgula butonu
+const queryAllButton = document.getElementById('tum-getir');
+queryAllButton.addEventListener('click', () => {
+    fetch(apiUrl)
+    .then((response) => response.json())
+    .then((data) => {
+        updateTable(data);
+    })
+    .catch((error) => {
+        console.error('Veri alınırken bir hata oluştu: ', error);
+    });
+});
+
+// Sorgula butonu
 const queryButton = document.getElementById('sorgula');
 queryButton.addEventListener('click', () => {
     const personelId = document.getElementById('id').value;
     
     fetch(apiUrl + '/' + personelId)
-        .then((response) => response.json())
-        .then((data) => {
+    .then((response) => {
+        if (!response.ok) {
+            showNoDataMessage();
+            throw new Error('Veri alınamadı.');
+        }
+        return response.json();
+    })
+    .then((data) => {
+        if (data.length === 0) {
+            showNoDataMessage();
+        } else {
             updateTable([data]);
-        })
+        }
+    })
         .catch((error) => {
             console.error('Veri alınırken bir hata oluştu: ', error);
         });
 });
 
+function showNoDataMessage() {
+    const tableBody = document.getElementById('table-body');
+    tableBody.innerHTML = '<tr><td colspan="9">Hiç kayıt bulunamadı.</td></tr>';
+}
 // Tabloyu güncelleyen işlev
 function updateTable(personel) {
     const tableBody = document.getElementById('table-body');
@@ -68,7 +95,7 @@ function updateTable(personel) {
     updateButtons.forEach((button) => {
         button.addEventListener('click', () => {
             const personelId = button.getAttribute('data-personel-id');
-            window.location.href = `post-personel.html?id=${personelId}`;
+            window.location.href = `put-personel.html?id=${personelId}`;
         });
     });
 }

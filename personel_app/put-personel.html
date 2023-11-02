@@ -118,13 +118,12 @@ margin-top: -10px;
                     <label for="salary">Maaşı</label>
                     <input type="text" class="form-control" id="salary">
                 </div>
-
                 <div class="form-group col-md-5">
                   <label for="department">Departman</label>
                   <select class="form-select" id="department" name="department">
-                      <option value="1">Muhasebe</option>
-                      <option value="2">HR</option>
-                      <option value="3">IT</option>
+                      <option value="MUHASEBE">Muhasebe</option>
+                      <option value="HR">HR</option>
+                      <option value="IT">IT</option>
                   </select>
               </div>
         
@@ -133,7 +132,6 @@ margin-top: -10px;
                   <div class="form-group col-md-5">
                       <label for="birthDate">Doğum Günü</label>
                       <input type="date" class="form-control" id="birthDate">
-
                   </div>
                   <div class="form-group col-md-2 col-style">
                     <label for="isMarried">Evli mi?</label><br>
@@ -145,16 +143,15 @@ margin-top: -10px;
                         <input class="form-check-input" type="radio" id="notMarried" name="maritalStatus" value="false">
                         <label class="form-check-label" for="notMarried">Hayır</label>
                     </div>
-                    </div>
-                    <div class="form-group col col-style">
-
+                  </div>
+                  <div class="form-group col col-style">
                       <label for="gender">Cinsiyeti</label><br>
                       <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="gender" id="female" value="Kadın">
+                          <input class="form-check-input" type="radio" name="gender" id="female" value="F">
                           <label class="form-check-label" for="female">Kadın</label>
                       </div>
                       <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="gender" id="male" value="Erkek">
+                          <input class="form-check-input" type="radio" name="gender" id="male" value="M">
                           <label class="form-check-label" for="male">Erkek</label>
                       </div>
                   </div>
@@ -170,7 +167,7 @@ margin-top: -10px;
 
       </div>
   </div>
-  <script src="./post-personel.js"></script>
+  <script src="./put-personel.js"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
   </body>

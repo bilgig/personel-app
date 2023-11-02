@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -37,8 +39,9 @@ public class Personel {
     private Gender gender;
 
     @Column(name="birth_date")
-    @JsonFormat(pattern="dd/MM/yyyy")
-    @DateTimeFormat(pattern="dd/MM/yyyy")
+    //@JsonFormat(pattern="dd/MM/yyyy")
+    //@DateTimeFormat(pattern="dd/MM/yyyy")
     private Date birthDate;
+
 
 }

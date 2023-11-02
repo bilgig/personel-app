@@ -7,16 +7,16 @@ postForm.addEventListener('submit', function (event) {
     const salary = document.getElementById('salary').value;
     
     const isMarriedInput = document.querySelector('input[name="maritalStatus"]:checked');
-    const isMarried = isMarriedInput ? isMarriedInput.value : '';
+    const isMarried = isMarriedInput ? isMarriedInput.value === "true" : false;
     
     const department = document.getElementById('department').value;
     
     const genderInput = document.querySelector('input[name="gender"]:checked');
-    const gender = genderInput ? genderInput.value : '';
+    const gender = genderInput ? (genderInput.value === "Kadın" ? "F" : "M") : null;
     
     const birthDate = document.getElementById('birthDate').value;
     
-    fetch('http://localhost:8080/personel', {
+    fetch('http://localhost:8080/personel/save', {
         method: 'POST',
         body: JSON.stringify({
             firstName,
